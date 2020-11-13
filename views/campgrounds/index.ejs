@@ -1,0 +1,32 @@
+<%- include("../partials/header") %>
+
+<header class="jumbotron">
+  <div class="container">
+    <h1>Welcome to CampGround!</h1>
+    <div class="container">
+      <p>Look at all the amazing campgrounds</p>
+      <p>
+        <a class="btn btn-primary btn-lg" href="campgrounds/new">Add a campground</a>
+      </p>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row text-center">
+    <% campgrounds.forEach(campground => {%>
+      <div class="col-sm-6 col-md-4 mb-3">
+        <div class="card h-100">
+          <img class="card-img-top" src=<%= campground.image %>>
+          <div class="card-body">
+            <h4><%= campground.name %></h4>
+          </div>
+          <div class="card-footer bg-primary">
+            <a href="campgrounds/<%= campground.slug %>" class="text-decoration-none text-light stretched-link" >Details</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+<%- include("../partials/footer") %>

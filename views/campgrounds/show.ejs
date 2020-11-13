@@ -1,0 +1,75 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+  <div class="row">
+    <h1 class="display-4 offset-md-3 pl-3"><%= campground.name %></h1>
+  </div>
+  <div class="row">
+
+    <aside class="col-md-3">
+      <h3 class="lead text-center">YelpCamp</h3>
+        <ul class="list-group accordion" id="infoAccordion">
+          <a class="text-decoration-none" data-toggle="collapse" href="#collapsePrice" role="button" aria-expanded="false" aria-controls="collapsePrice">
+            <li class="list-group-item text-info">
+            Pricing
+            </li>
+          </a>
+          <li class="list-group-item collapse" id="collapsePrice"><strong>$<%= campground.price %>/night</strong></li>
+
+          <a class="text-decoration-none" data-toggle="collapse" href="#collapseBooking" role="button" aria-expanded="false" aria-controls="collapseBooking">
+            <li class="list-group-item text-info">
+            Booking
+            </li>
+          </a>
+          <li class="list-group-item collapse" id="collapseBooking">book through your favourite travel site</li>
+
+          <a class="text-decoration-none" data-toggle="collapse" href="#collapsePolicy" role="button" aria-expanded="false" aria-controls="collapsePolicy">
+            <li class="list-group-item text-info">
+            Policy
+            </li>
+          </a>
+          <li class="list-group-item collapse" id="collapsePolicy">No loud music, no parties. You pack it in, <strong>you pack it out.</strong></li>
+        </ul>
+    </aside>
+
+    <div class="col-md-9">
+      <main class="border p-3">
+        <img class="img-fluid rounded" src="<%= campground.image %>">
+        <p class="my-2"><%= campground.description %></p>
+        <div class="d-flex">
+          <address class="mb-0 small font-italic text-muted d-inline-block align-self-center">
+            Campground contributed
+            <span class="text-info"> <%= moment(campground.createdAt).fromNow() %> </span>
+            by
+            <span class="text-info"> <%= campground.author.username %> </span>
+          </address>
+          <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+            <a class="btn btn-warning btn-sm align-self-center ml-2" href="/campgrounds/<%= campground.slug %>/edit">Edit</a>
+          <% } %>
+        </div>
+      </main>
+      <section class="border my-3 p-2">
+        <div class="d-flex">
+          <a class="ml-auto btn btn-info btn-sm mt-1" href="/campgrounds/<%= campground.slug %>/comments/new">Add Comment</a>
+        </div>
+        <hr>
+        <% campground.comments.forEach(comment => { %>
+          <div class="row">
+            <div class="col-md-12">
+              <strong><%= comment.author.username %></strong>
+              <div class="float-right">
+                <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                  <a class="badge badge-warning font-weight-normal" href="/campgrounds/<%= campground.slug %>/comments/<%= comment._id %>/edit">Edit</a>
+                <% } %>
+                <span><%= moment(comment.createdAt).fromNow() %></span>
+              </div>
+              <p><%= comment.text %></p>
+            </div>
+          </div>
+          <% }); %>
+      </section>
+    </div>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>
