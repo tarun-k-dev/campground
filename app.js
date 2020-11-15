@@ -34,7 +34,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 // connect to mongo
 mongoose
-	// .connect('mongodb://localhost/yelpCamp')
+	
 	.connect(url)
 	.then(console.log('mongoose connected'))
 	.catch((err) => console.log('error connecting mongoose', err));
@@ -47,10 +47,9 @@ app.use(methodOverride('_method')); // override default post and get routes with
 app.use(flash()); // this is all we have to do to set up flash because we already have our session set up with express-session
 
 // PASSPORT configuration
-// Colt doesn't explain what the last two settings do, for now i'm just copy/pasting these settings to get this to work
 app.use(
 	require('express-session')({
-		secret            : 'Khan is still the greatest', // this is a random phrase used for encryption
+		secret            : 'Humans are still the greatest', // this is a random phrase used for encryption
 		resave            : false,
 		saveUninitialized : false
 	})
